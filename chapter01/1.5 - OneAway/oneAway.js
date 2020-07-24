@@ -1,6 +1,6 @@
-var oneAway = function(string1, string2) {
+var oneAway = function (string1, string2) {
   // insert a char for str1 -> remove a char for str2
-  var checkOneMissing = function(first, second) {
+  var checkOneMissing = function (first, second) {
     if (first.length !== second.length - 1) {
       return false;
     } else {
@@ -24,7 +24,7 @@ var oneAway = function(string1, string2) {
     }
   };
 
-  var checkOneDiff = function(first, second) {
+  var checkOneDiff = function (first, second) {
     if (first.length !== second.length) {
       return false;
     } else {
@@ -53,9 +53,12 @@ var oneAway = function(string1, string2) {
   // console.log(string2, string1, 'checkMiss', checkOneMissing(string2, string1));
   // console.log(string1, string2, 'checkDiff', checkOneDiff(string1, string2));
 
-  return checkOneMissing(string1, string2) || checkOneMissing(string2, string1) || checkOneDiff(string1, string2);
+  return (
+    checkOneMissing(string1, string2) ||
+    checkOneMissing(string2, string1) ||
+    checkOneDiff(string1, string2)
+  );
 };
-
 
 // Test
 console.log(oneAway('pale', 'ple'), true);
