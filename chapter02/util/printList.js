@@ -1,6 +1,9 @@
-module.exports = function(head) {
-  while (head !== null) {
-    console.log(head.value);
-    head = head.next;
+module.exports = function (node) {
+  if (!node) return [];
+  const nodes = [];
+  while (node) {
+    nodes.push(node.data);
+    node = node.next;
   }
+  return nodes;
 };
