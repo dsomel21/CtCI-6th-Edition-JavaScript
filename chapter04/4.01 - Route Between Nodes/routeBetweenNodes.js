@@ -4,20 +4,20 @@ var Queue = require('./../util/Queue');
 // concurrently implement BFS on both sides of the graph
 // intention is to minimise the levels that the graph has to search
 
-var checkRoute = function(value1, value2, graph) {
+var checkRoute = function (value1, value2, graph) {
   var q1 = new Queue();
   var q2 = new Queue();
   var visited1 = {};
-  var visited2 = {}; 
+  var visited2 = {};
   // insert values into qs
   visited1[value1] = true;
   visited2[value2] = true;
-  if(graph.hasNode(value1)) {
+  if (graph.hasNode(value1)) {
     for (var edge in graph.findEdges(value1)) {
       q1.add(edge);
     }
   }
-  if(graph.hasNode(value2)) {
+  if (graph.hasNode(value2)) {
     for (var edge in graph.findEdges(value2)) {
       q2.add(edge);
     }
@@ -34,7 +34,7 @@ var checkRoute = function(value1, value2, graph) {
       }
       if (visited1[nextEdge1] === undefined) {
         visited1[nextEdge1] = true;
-        if(graph.hasNode(nextEdge1)) {
+        if (graph.hasNode(nextEdge1)) {
           for (var edge in graph.findEdges(nextEdge1)) {
             q1.add(edge);
           }
@@ -48,7 +48,7 @@ var checkRoute = function(value1, value2, graph) {
       }
       if (visited2[nextEdge2] === undefined) {
         visited2[nextEdge2] = true;
-        if(graph.hasNode(nextEdge2)) {
+        if (graph.hasNode(nextEdge2)) {
           for (var edge in graph.findEdges(nextEdge2)) {
             q2.add(edge);
           }
@@ -73,7 +73,6 @@ graph.addEdge('A', 'C');
 graph.addEdge('B', 'C');
 
 graph.addEdge('D', 'E');
-
 
 console.log(checkRoute('A', 'C', graph), true);
 console.log(checkRoute('A', 'E', graph), false);
