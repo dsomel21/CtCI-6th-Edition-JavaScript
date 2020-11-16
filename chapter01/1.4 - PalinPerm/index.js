@@ -1,29 +1,31 @@
 const { test, assert } = require('../../test/TestHelper');
 
-function createDowncaseCharHash(str) {
-  if (str.length < 0) return;
-  let charHash = {};
-  for (let char of str) {
-    char = char.toLowerCase();
+function palinPerm(str) {
+  if (!str || str.length === 0) return null;
+
+  const charHash = {};
+
+  for (let char of str.toLowerCase().replace(' ', '')) {
     charHash[char] ? charHash[char]++ : (charHash[char] = 1);
   }
-  return charHash;
-}
 
-function palinPerm(str) {
-  const strHash = createDowncaseCharHash(str);
-  let oddCount = 0;
-  for (let char in strHash) {
-    if (char === ' ') continue;
-    if (strHash[char] % 2 === 1) {
-      oddCount++;
-      if (oddCount > 1) return false;
+let hasOdd = false;
+  for (let char in charHash) {
+    if (charHash[char] % 2 === 1) {
+      if (hasOdd) return false;
+      hasOdd = true;
     }
   }
   return true;
 }
 
 // TESTS
+test('Literally a palindrome should return true', () => {
+  const result = palinPerm('racecar');
+  const expected = true;
+  assert(result).toBe(expected);
+});
+
 test('Known palindrome should return true', () => {
   const result = palinPerm('Tact Coa');
   const expected = true;

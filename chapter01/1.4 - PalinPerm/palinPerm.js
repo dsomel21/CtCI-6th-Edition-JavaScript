@@ -1,4 +1,6 @@
-var palinPerm = function(string) {
+const { test, assert } = require('../../test/TestHelper');
+
+var palinPerm = function (string) {
   // create object literal to store charcount
   var chars = {};
   var currChar;
@@ -17,7 +19,7 @@ var palinPerm = function(string) {
   // check that all chars are even count, except for one exception
   Object.keys(chars).forEach((char) => {
     if (chars[char] % 2 > 0) {
-    // if more than one exception, return false
+      // if more than one exception, return false
       if (mulligan) {
         isPerm = false; // return in a forEach statment doesn't flow out of function scope
       } else {
@@ -30,5 +32,12 @@ var palinPerm = function(string) {
 };
 
 // TESTS
+
+test('Should return true if the word is already a palindrome', () => {
+  const result = palinPerm('Tact Coa');
+  const expected = true;
+  assert(result).toBe(expected);
+});
+
 console.log(palinPerm('Tact Coa'), 'true');
 console.log(palinPerm('Tact boa'), 'false');

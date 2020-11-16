@@ -21,17 +21,20 @@ const { test, assert } = require('../../test/TestHelper');
 // };
 
 function checkPermute(strA, strB) {
+  if (!strA || !strB) return null;
   if (strA.length !== strB.length) return false;
   let hashA = {};
   let hashB = {};
-  for (let i = 0; i < strA.length; i++) {
-    hashA[strA[i]] > 0 ? hashA[strA[i]]++ : (hashA[strA[i]] = 1);
-    hashB[strB[i]] > 0 ? hashB[strB[i]]++ : (hashB[strB[i]] = 1);
+  for (let char of strA) {
+    hashA[char] ? hashA[char]++ : (hashA[char] = 1);
   }
 
-  for (let char in hashA) {
-    if (hashA[char] !== hashB[char]) return false;
+  for (let char of strB) {
+    if (!hashA[char]) return false;
+    if (hashB[char] >= hashA[char]) return false;
+    hashB[char] ? hashB[char]++ : (hashB[char] = 1);
   }
+
   return true;
 }
 

@@ -1,17 +1,45 @@
 const { test, assert } = require('../../test/TestHelper.js');
 
+// function compress(str) {
+//   if (str.length <= 3) return str;
+//   let newStr = '';
+//   for (let i = 0; i < str.length; i++) {
+//     let occurance = 1;
+//     while (str[i] === str[i + 1]) {
+//       occurance++;
+//       i++;
+//     }
+//     newStr += str[i] + occurance;
+//   }
+//   return newStr.length < str.length ? newStr : str;
+// }
+
 function compress(str) {
-  if (str.length <= 3) return str;
+  if (str.length <= getCompressionLength(str)) return str;
+
   let newStr = '';
+  let occurance = 0;
   for (let i = 0; i < str.length; i++) {
-    let occurance = 1;
-    while (str[i] === str[i + 1]) {
-      occurance++;
-      i++;
+    occurance++;
+    if (i === str.length - 1 || str[i] !== str[i + 1]) {
+      newStr += `${str[i]}${occurance}`;
+      occurance = 0;
     }
-    newStr += str[i] + occurance;
   }
-  return newStr.length < str.length ? newStr : str;
+  return newStr;
+}
+
+function getCompressionLength(str) {
+  let occurance = 0;
+  let compressionLength = 0;
+  for (let i = 0; i < str.length; i++) {
+    occurance++;
+    if (i === str.length - 1 || str[i] !== str[i + 1]) {
+      compressionLength += 1 + occurance.toString().length;
+      occurance = 0;
+    }
+  }
+  return compressionLength;
 }
 
 /* TEST */
@@ -33,9 +61,8 @@ test('abcaaaaa should return back the same string', () => {
   assert(result).toBe(expected);
 });
 
-test('abcAAAAA should return back compressed string', () => {
-  const result = comp;
-  ress('abcAAAAAA');
+test('abcAAAAAA should return back compressed string', () => {
+  const result = compress('abcAAAAAA');
   const expected = 'a1b1c1A6';
   assert(result).toBe(expected);
 });
